@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.board.dao.BoardDao">
+
+	<!-- 게시글 전체 조회 -->
+	<select id="boardList" parameterType="board" resultType="board">
+		SELECT B_NUM, B_NAME, B_TITLE, TO_CHAR(B_INSERTDATE, 'YYYY-MM-DD') AS B_INSERTDATE
+		FROM SPRING_BOARD
+		<where>
+			B_DELETEYN = 'Y'
+		</where>
+	</select>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="boardDetail" parameterType="board" resultType="board">
+		SELECT B_NUM, B_NAME, B_TITLE, B_CONTENT, B_FILE, TO_CHAR(B_INSERTDATE, 'YYYY-MM-DD') AS B_INSERTDATE
+		FROM SPRING_BOARD
+		<where>
+		B_NUM = #{b_num} AND B_DELETEYN = 'Y'
+		</where>
+	</select>
+	
+	<!-- 게시글 작성을 위한 채번 -->
+	<select id="sequenceB" parameterType="board" resultType="board">
+		SELECT MAX(NVL(SUBSTR(B_NUM, -3),0)) +1 AS B_NUM
+		FROM SPRING_BOARD
+		<where>
+			B_DELETEYN = 'Y'
+		</where>
+	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="boardInsert" parameterType="board">
+		INSERT INTO SPRING_BOARD
+		(B_NUM, B_NAME, B_TITLE, B_CONTENT, B_FILE, B_PWD, B_INSERTDATE, B_UPDATEDATE, B_DELETEYN)
+		VALUES(#{b_num}, #{b_name}, #{b_title}, #{b_content}, #{b_file}, #{b_pwd}, SYSDATE, SYSDATE, 'Y')
+	</insert>
+</mapper>
