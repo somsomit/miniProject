@@ -2,15 +2,6 @@
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.io.*" %>
-<%@ page import="java.net.*" %>
-<%
-	// 파일 기본경로
-	String defaultPath = request.getSession().getServletContext().getRealPath("/");
-	// 파일 기본경로, 상세경로
-	String filePath = defaultPath + "ckEimg" + File.separator;
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>

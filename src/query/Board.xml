@@ -31,10 +31,43 @@
 		</where>
 	</select>
 	
+	<!-- 비밀번호 확인 -->
+	<select id="pwdConfirm" parameterType="board" resultType="int">
+		SELECT NVL((
+			SELECT 1 
+			FROM SPRING_BOARD
+			WHERE
+				B_NUM = #{b_num} AND 
+				B_PWD = #{b_pwd} AND
+				B_DELETEYN = 'Y' ), 0) AS RESULT
+		FROM DUAL
+	</select>
+	
 	<!-- 게시글 작성 -->
 	<insert id="boardInsert" parameterType="board">
 		INSERT INTO SPRING_BOARD
 		(B_NUM, B_NAME, B_TITLE, B_CONTENT, B_FILE, B_PWD, B_INSERTDATE, B_UPDATEDATE, B_DELETEYN)
 		VALUES(#{b_num}, #{b_name}, #{b_title}, #{b_content}, #{b_file}, #{b_pwd}, SYSDATE, SYSDATE, 'Y')
 	</insert>
+	
+	<!-- 게시글 업데이트 -->
+	<update id="boardUpdate" parameterType="board">
+		UPDATE SPRING_BOARD
+		SET B_TITLE = #{b_title}, B_CONTENT = #{b_content}, B_UPDATEDATE = SYSDATE
+		<if test="b_file != ''">
+			B_FILE = #{b_file}
+		</if>
+		<where>
+			B_NUM = #{b_num} AND B_DELETEYN = 'Y'
+		</where>
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<update id="boardDelete" parameterType="board">
+		UPDATE SPRING_BOARD
+		SET B_DELETEYN = 'N'
+		<where>
+			B_NUM = #{b_num} AND B_DELETEYN = 'Y'
+		</where>
+	</update>
 </mapper>

@@ -41,21 +41,31 @@ public class BoardDaoImpl implements BoardDao {
 		return result;
 	} // end of boardInsert
 
-//	@Override
-//	public int boardUpdate(BoardVO bvo) {
-//		// TODO Auto-generated method stub
-//		int result = 0;
-//		result = session.update();
-//		return result;
-//	} // end of boardUpdate
-//
-//	@Override
-//	public int boardDelete(BoardVO bvo) {
-//		// TODO Auto-generated method stub
-//		int result = 0;
-//		result = session.update();
-//		return result;
-//	} // end of boardDelete
+	@Override
+	public int boardUpdate(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		result = session.update("boardUpdate");
+		return result;
+	} // end of boardUpdate
+
+	@Override
+	public int boardDelete(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		result = session.update("boardDelete");
+		return result;
+	} // end of boardDelete
+
+	@Override
+	public int pwdConfirm(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		System.out.println("[log] BoardDaoImpl.pwdConfirm 시작");
+		int result = 0;
+		result = (Integer)session.selectOne("pwdConfirm");
+		System.out.println("[log] BoardDaoImpl.pwdConfirm 끝");
+		return result;
+	} // end of pwdCofirm
 	
 	@Override
 	public BoardVO sequenceB(BoardVO _bvo){

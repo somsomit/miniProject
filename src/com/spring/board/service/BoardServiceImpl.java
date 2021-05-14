@@ -26,7 +26,7 @@ public class BoardServiceImpl implements BoardService {
 		bList = boardDao.boardList(bvo);
 		System.out.println("[log] BoardServiceImpl.boardList 끝");
 		return bList;
-	}
+	} // end of boardList
 
 	@Override
 	public BoardVO boardDetail(BoardVO bvo) {
@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDetail = boardDao.boardDetail(bvo);
 		System.out.println("[log] BoardServiceImpl.boardDetail 끝");
 		return boardDetail;
-	}
+	} // end of boardDetail
 
 	@Override
 	public int boardInsert(BoardVO bvo) {
@@ -46,19 +46,27 @@ public class BoardServiceImpl implements BoardService {
 		result = boardDao.boardInsert(bvo);
 		System.out.println("[log] BoardServiceImpl.boardInsert 끝");
 		return result;
-	}
+	} // end of boardInsert
 
-//	@Override
-//	public int boardUpdate(BoardVO bvo) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int boardDelete(BoardVO bvo) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
+	@Override
+	public int boardUpdate(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		System.out.println("[log] BoardServiceImpl.boardUpdate 시작");
+		int result = 0;
+		result = boardDao.boardUpdate(bvo);
+		System.out.println("[log] BoardServiceImpl.boardUpdate 끝");
+		return result;
+	} // end of boardUpdate
+
+	@Override
+	public int boardDelete(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		System.out.println("[log] BoardServiceImpl.boardDelete 시작");
+		int result = 0;
+		result = boardDao.boardDelete(bvo);
+		System.out.println("[log] BoardServiceImpl.boardDelete 끝");
+		return result;
+	}
 
 	@Override
 	public BoardVO sequenceB(BoardVO _bvo) {
@@ -68,6 +76,16 @@ public class BoardServiceImpl implements BoardService {
 		bvo = boardDao.sequenceB(bvo);
 		System.out.println("[log] BoardServiceImpl.sequenceB 끝");
 		return bvo;
-	}
+	} // end of sequenceB
+
+	@Override
+	public int pwdConfirm(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		System.out.println("[log] BoardServiceImpl.pwdConfirm 시작");
+		int result = 0;
+		result = boardDao.pwdConfirm(bvo);
+		System.out.println("[log] BoardServiceImpl.pwdConfirm 끝");
+		return result;
+	} // end of pwdCofirm
 
 }
