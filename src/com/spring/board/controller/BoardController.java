@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.board.common.file.FileUploadUtil;
 import com.spring.board.common.util.Sequence;
+import com.spring.board.common.util.Util;
 import com.spring.board.service.BoardService;
 import com.spring.board.vo.BoardVO;
+import com.spring.common.page.Paging;
 
 @Controller
 @RequestMapping(value="/board")
@@ -30,9 +32,33 @@ public class BoardController {
 	@RequestMapping(value="/boardList", method = RequestMethod.GET)
 	public String boardList(@ModelAttribute BoardVO bvo, Model model){
 		logger.info("[log] BoardController.boardList 시작");
+		
+		if(bvo.getOrder_by()==null) bvo.setOrder_by("B_NUM");
+		if(bvo.getOrder_sc()==null) bvo.setOrder_sc("DESC");
+		
+		logger.info("order_by : " + bvo.getOrder_by());
+		logger.info("order_sc : " + bvo.getOrder_sc());
+		logger.info("keyword : " + bvo.getKeyword());
+		logger.info("search : " + bvo.getSearch());
+		
+		// 페이지 세팅
+		Paging.setPage(bvo);
+		
+		// 전체 레코드 수 구현
+		int total = boardService.boardListCnt(bvo);
+		logger.info("total : " + total);
+		
+		// 글번호 재설정
+		int count = total - (Util.nvl(bvo.getPage()) - 1) * Util.nvl(bvo.getPageSize());
+		logger.info("count : " + count);
+		
 		List<BoardVO> boardList = null;
 		boardList = boardService.boardList(bvo);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("count", count);
+		model.addAttribute("total", total);
+		model.addAttribute("data", bvo);
+		
 		return "board/boardList";
 	} // end of boardList
 
@@ -75,7 +101,7 @@ public class BoardController {
 		return "board/writeForm";		
 	} // end of writeForm
 	
-	@RequestMapping(value="boardInsert", method=RequestMethod.POST)
+	@RequestMapping(value="/boardInsert", method=RequestMethod.POST)
 	public String boardInsert(@ModelAttribute BoardVO bvo, 
 							  HttpServletRequest request){
 		logger.info("[log] BoardController.boardInsert 시작");
@@ -107,6 +133,18 @@ public class BoardController {
 		logger.info("[log] BoardController.boardInsert 끝");
 		return "redirect:" + url;
 	} // end of boardInsert
+	
+	@RequestMapping(value="/UpdateForm", method=RequestMethod.POST)
+	public String UpdateForm(@ModelAttribute BoardVO bvo, Model model){
+		logger.info("[log] BoardController.UpdateForm 시작");
+		
+		BoardVO updateData = new BoardVO();
+		updateData = boardService.boardDetail(bvo);
+		
+		model.addAttribute("updateData", updateData);
+		logger.info("[log] BoardController.UpdateForm 끝");
+		return "board/updateForm";
+	}
 	
 	@RequestMapping(value="boardUpdate", method=RequestMethod.POST)
 	public String boardUpdate(@ModelAttribute BoardVO bvo, HttpServletRequest request){
@@ -140,7 +178,7 @@ public class BoardController {
 	} // end of boardUpdate
 	
 	/* 글 수정 폼 */
-	@RequestMapping(value="updateForm", method=RequestMethod.POST)
+	@RequestMapping(value="/updateForm", method=RequestMethod.POST)
 	public String updateForm(@ModelAttribute BoardVO bvo, Model model){
 		logger.info("[log] BoardController.updateForm 시작");
 		logger.info("[log] num : " + bvo.getB_num());
@@ -152,7 +190,7 @@ public class BoardController {
 		return "board/updateForm";
 	} // end of updateForm
 	
-	@RequestMapping(value="boardDelete")
+	@RequestMapping(value="/boardDelete")
 	public String boardDelete(@ModelAttribute BoardVO bvo, HttpServletRequest request){
 		logger.info("[log] BoardController.boardDelete 시작");
 		

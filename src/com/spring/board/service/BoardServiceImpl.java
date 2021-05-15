@@ -88,4 +88,14 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	} // end of pwdCofirm
 
+	@Override
+	public int boardListCnt(BoardVO _bvo) {
+		// TODO Auto-generated method stub
+		System.out.println("[log] BoardServiceImpl.boardListCnt 시작");
+		int bvo = 0;
+		bvo = boardDao.boardListCnt(_bvo);
+		System.out.println("[log] BoardServiceImpl.boardListCnt 끝");
+		return bvo;
+	} // end of boardListCnt
+
 }

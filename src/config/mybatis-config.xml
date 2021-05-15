@@ -4,5 +4,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.spring.board.vo.BoardVO" alias="board"/>
+		<!-- <typeAlias type="com.spring.board.vo.replyVO" alias="reply"/> -->
 	</typeAliases>
 </configuration>

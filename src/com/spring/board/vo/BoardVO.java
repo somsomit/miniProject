@@ -1,8 +1,9 @@
 package com.spring.board.vo;
 
 import org.springframework.web.multipart.MultipartFile;
+import com.spring.board.common.vo.CommonVO;
 
-public class BoardVO {
+public class BoardVO extends CommonVO {
 	
 	// B_NUM, B_NAME, B_TITLE, B_CONTENT, B_FILE, B_PWD, B_INSERTDATE, B_UPDATEDATE, B_DELETEYN
 	private String b_num;

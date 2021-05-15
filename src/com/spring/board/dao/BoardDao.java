@@ -11,6 +11,7 @@ public interface BoardDao {
 	public int boardUpdate(BoardVO bvo); // 수정
 	public int boardDelete(BoardVO bvo); // 삭제
 	public int pwdConfirm(BoardVO bvo); // 비밀번호 확인
+	public int boardListCnt(BoardVO bvo); // 레코드 수
 	public BoardVO sequenceB(BoardVO _bvo); // 채번
 
 }

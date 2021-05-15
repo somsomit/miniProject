@@ -76,4 +76,14 @@ public class BoardDaoImpl implements BoardDao {
 		return bvo;
 	} // end of numberB
 
+	@Override
+	public int boardListCnt(BoardVO _bvo) {
+		// TODO Auto-generated method stub
+		System.out.println("[log] BoardDaoImpl.boardListCnt 시작");
+		int bvo = 0;
+		bvo = (Integer)session.selectOne("boardListCnt");
+		System.out.println("[log] BoardDaoImpl.boardListCnt 시작");
+		return bvo;
+	}
+
 }
